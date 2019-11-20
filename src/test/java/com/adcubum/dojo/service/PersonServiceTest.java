@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class PersonServiceTest {
 
     @Test
-    void returnsAPerson(){
+    void creatingPersonReturnsPerson(){
         // given
         String firstNameInput = "Zeljko";
         String lastNameInput = "Hofmann";
@@ -24,7 +24,7 @@ public class PersonServiceTest {
     }
 
     @Test
-    void returnedPersonHasCorrectFirstName(){
+    void creatingPersonHasCorrectFirstName(){
         // given
         String firstNameInput = "Zeljko";
         String lastNameInput = "Hofmann";
@@ -39,7 +39,7 @@ public class PersonServiceTest {
 
 
     @Test
-    void returnedPersonHasCorrectLastName(){
+    void creatingPersonHasCorrectLastName(){
         // given
         String firstNameInput = "Zeljko";
         String lastNameInput = "Hofmann";
@@ -54,7 +54,7 @@ public class PersonServiceTest {
 
 
     @Test
-    void incorrectFirstNameThrowsException(){
+    void creatingPersonWithEmptyFirstNameThrowsException(){
         // given
         String firstNameInput = "";
         String lastNameInput = "Hofmann";
