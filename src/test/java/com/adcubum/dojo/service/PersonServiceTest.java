@@ -54,14 +54,15 @@ public class PersonServiceTest {
 
 
     @Test
-    void returnedPersonHasCorrectLastName(){
+    void incorrectFirstNameThrowsException(){
         // given
         String firstNameInput = "";
         String lastNameInput = "Hofmann";
-
-        // when
         PersonService  personServ= new PersonService();
+
+        // then
         assertThrows(IllegalArgumentException.class, () -> {
+            // when
             personServ.create(firstNameInput, lastNameInput);
         });
     }
