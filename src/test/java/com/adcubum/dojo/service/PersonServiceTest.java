@@ -66,4 +66,18 @@ public class PersonServiceTest {
             personServ.create(firstNameInput, lastNameInput);
         });
     }
+
+    @Test
+    void creatingPersonWithEmptyLastNameThrowsException(){
+        // given
+        String firstNameInput = "Zelko";
+        String lastNameInput = "";
+        PersonService  personServ= new PersonService();
+
+        // then
+        assertThrows(IllegalArgumentException.class, () -> {
+            // when
+            personServ.create(firstNameInput, lastNameInput);
+        });
+    }
 }
