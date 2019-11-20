@@ -3,6 +3,7 @@ package com.adcubum.dojo.service;
 import com.adcubum.dojo.domain.Person;
 
 import com.adcubum.dojo.repository.PersonRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -11,6 +12,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PersonServiceTest {
 
+    PersonRepository repositoryMock;
+
+    @BeforeEach
+    void setup() {
+        this.repositoryMock = Mockito.mock(PersonRepository.class);
+    }
+
     @Test
     void creatingPersonReturnsPerson(){
         // given
@@ -18,7 +26,7 @@ public class PersonServiceTest {
         String lastNameInput = "Hofmann";
 
         // when
-        PersonService  personServ= new PersonService();
+        PersonService  personServ= new PersonService(repositoryMock);
         Person person = personServ.create(firstNameInput, lastNameInput);
 
         // then
@@ -32,7 +40,7 @@ public class PersonServiceTest {
         String lastNameInput = "Hofmann";
 
         // when
-        PersonService  personServ= new PersonService();
+        PersonService  personServ= new PersonService(repositoryMock);
         Person person = personServ.create(firstNameInput, lastNameInput);
 
         // then
@@ -47,7 +55,7 @@ public class PersonServiceTest {
         String lastNameInput = "Hofmann";
 
         // when
-        PersonService  personServ= new PersonService();
+        PersonService  personServ= new PersonService(repositoryMock);
         Person person = personServ.create(firstNameInput, lastNameInput);
 
         // then
@@ -60,7 +68,7 @@ public class PersonServiceTest {
         // given
         String firstNameInput = "";
         String lastNameInput = "Hofmann";
-        PersonService  personServ= new PersonService();
+        PersonService  personServ= new PersonService(repositoryMock);
 
         // then
         assertThrows(IllegalArgumentException.class, () -> {
@@ -74,7 +82,7 @@ public class PersonServiceTest {
         // given
         String firstNameInput = "Zelko";
         String lastNameInput = "";
-        PersonService  personServ= new PersonService();
+        PersonService  personServ= new PersonService(repositoryMock);
 
         // then
         assertThrows(IllegalArgumentException.class, () -> {
@@ -88,11 +96,13 @@ public class PersonServiceTest {
         // given
         String firstNameInput = "Zelko";
         String lastNameInput = "Hofmann";
-        PersonRepository repository = Mockito.mock(PersonRepository.class);
-        PersonService personServ= new PersonService(repository);
+
+        PersonService personServ= new PersonService(repositoryMock);
 
         // when
+        personServ.create(firstNameInput, lastNameInput);
 
-
+        // then
+        Mockito.verify(repositoryMock).save();
     }
 }
