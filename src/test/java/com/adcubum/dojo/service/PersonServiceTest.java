@@ -5,6 +5,7 @@ import com.adcubum.dojo.domain.Person;
 import com.adcubum.dojo.repository.PersonRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -103,6 +104,24 @@ public class PersonServiceTest {
         personServ.create(firstNameInput, lastNameInput);
 
         // then
-        Mockito.verify(repositoryMock).save();
+        Mockito.verify(repositoryMock).save(argument.capture());
+    }
+
+    @Test
+    void creatingPersonWillInvokeRepositorySaveWithPersonDatabaseObject(){
+        // given
+        String firstNameInput = "Zelko";
+        String lastNameInput = "Hofmann";
+
+        PersonService personServ= new PersonService(repositoryMock);
+
+        // when
+        personServ.create(firstNameInput, lastNameInput);
+
+        // then
+
+        ArgumentCaptor<PersonEntity> argument = ArgumentCaptor.forClass(PersonEntity.class);
+        Mockito.verify(repositoryMock).save(argument.capture());
+
     }
 }

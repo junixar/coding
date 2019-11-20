@@ -14,7 +14,7 @@ public class PersonService {
     public Person create(String firstNameInput, String lastNameInput) {
         validateInputParameters(firstNameInput, lastNameInput);
 
-        repository.save();
+        repository.save(argument.capture());
 
         return new Person(firstNameInput, lastNameInput);
     }
