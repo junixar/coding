@@ -9,6 +9,10 @@ public class PersonService {
             throw  new IllegalArgumentException();
         }
 
+        if (lastNameInput.trim().isEmpty()) {
+            throw  new IllegalArgumentException();
+        }
+
         return new Person(firstNameInput, lastNameInput);
     }
 
