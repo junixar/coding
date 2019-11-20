@@ -2,6 +2,7 @@ package com.adcubum.dojo.service;
 
 import com.adcubum.dojo.domain.Person;
 
+import com.adcubum.dojo.repository.PersonEntity;
 import com.adcubum.dojo.repository.PersonRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -97,31 +98,28 @@ public class PersonServiceTest {
         // given
         String firstNameInput = "Zelko";
         String lastNameInput = "Hofmann";
-
         PersonService personServ= new PersonService(repositoryMock);
 
         // when
         personServ.create(firstNameInput, lastNameInput);
 
         // then
-        Mockito.verify(repositoryMock).save(argument.capture());
+        Mockito.verify(repositoryMock).save(null);
     }
 
     @Test
-    void creatingPersonWillInvokeRepositorySaveWithPersonDatabaseObject(){
+    void creatingPersonWillInvokeRepositorySaveWithPersonEntityObject(){
         // given
         String firstNameInput = "Zelko";
         String lastNameInput = "Hofmann";
-
-        PersonService personServ= new PersonService(repositoryMock);
+        PersonService personServ = new PersonService(repositoryMock);
+        ArgumentCaptor<PersonEntity> argument = ArgumentCaptor.forClass(PersonEntity.class);
 
         // when
         personServ.create(firstNameInput, lastNameInput);
 
         // then
-
-        ArgumentCaptor<PersonEntity> argument = ArgumentCaptor.forClass(PersonEntity.class);
         Mockito.verify(repositoryMock).save(argument.capture());
-
+        assertThat(argument.getValue()).isInstanceOf(PersonEntity.class);
     }
 }
