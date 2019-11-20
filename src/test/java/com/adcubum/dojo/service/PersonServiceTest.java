@@ -1,9 +1,11 @@
 package com.adcubum.dojo.service;
 
 import com.adcubum.dojo.domain.Person;
+
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PersonServiceTest {
 
@@ -48,5 +50,19 @@ public class PersonServiceTest {
 
         // then
         assertThat(person.getLastName()).isEqualTo(lastNameInput);
+    }
+
+
+    @Test
+    void returnedPersonHasCorrectLastName(){
+        // given
+        String firstNameInput = "";
+        String lastNameInput = "Hofmann";
+
+        // when
+        PersonService  personServ= new PersonService();
+        assertThrows(IllegalArgumentException.class, () -> {
+            personServ.create(firstNameInput, lastNameInput);
+        });
     }
 }
